@@ -1,0 +1,146 @@
+#include "заголовок.h"
+
+int main() {
+
+	RenderWindow window(sf::VideoMode(1280, 720), L"Убийца гоблинов", Style::Close);	//экран
+
+
+	//фон  и мыш
+	Texture d, t;
+	Sprite фон;
+	t.loadFromFile("Текстуры/персонажи/точка.png");
+	фон.setTextureRect(IntRect(0, 0, 1280, 720));
+	
+	//вспомогательные переменные
+	Точка точка(0, 0, t);
+	САМАЛЁТ самалёт(0, 0, t, 100);
+
+	bool t1 = 0;
+	bool t2 = 0;
+	bool t3 = 0;
+	bool t4 = 0;
+	bool t5 = 0;
+	bool t6 = 0;
+	bool t7 = 0;
+	bool t8 = 0;
+	bool t9 = 0;
+	bool t10 = 0;
+
+	Event event;//датчик событий
+	while (window.isOpen())
+	{
+		//заставка
+		 {
+			/************  НАСТРОЙКИ ЭКРАНА  ***********/
+			 {
+				 d.loadFromFile("Текстуры/maxresdefault.jpg");
+				 фон.setTexture(d);
+				 window.draw(фон);
+
+				 while (window.pollEvent(event))//обработка событий
+				 {
+					 //закрываем окно
+					 if (event.type == sf::Event::Closed || Keyboard::isKeyPressed(Keyboard::K))
+						 window.close();
+				 } 
+
+			 }
+			 /************  УПРОВЛЕНИЕ  ***********/
+			 {
+				 if (Keyboard::isKeyPressed(Keyboard::E))//покозать точку
+					 t1 = 1;
+				 if (Keyboard::isKeyPressed(Keyboard::R))//показать точку на новом месте
+					 t2 = 1;
+				 if (Keyboard::isKeyPressed(Keyboard::T))//перемещать точку
+					 t3 = 1;
+				 if (Keyboard::isKeyPressed(Keyboard::Y))//перестать перемещать точку
+					 t3 = 0;
+				 if (Keyboard::isKeyPressed(Keyboard::U))// скрыть точку
+					 t4 = 1;
+				 if (Keyboard::isKeyPressed(Keyboard::I))//покозать самалёт
+					 t5 = 1;
+				 if (Keyboard::isKeyPressed(Keyboard::O))//показать самалёт на новом месте
+					 t6 = 1;
+				 if (Keyboard::isKeyPressed(Keyboard::P))//перемещать самалёт
+					 t7 = 1;
+				 if (Keyboard::isKeyPressed(Keyboard::F))//перестать перемещать самалёт
+					 t7 = 0;
+				 if (Keyboard::isKeyPressed(Keyboard::G))//скрыть самалёт
+					 t8 = 1;
+				 if (Keyboard::isKeyPressed(Keyboard::H))//увеличить самалёт
+					 t9 = 1;
+				 if (Keyboard::isKeyPressed(Keyboard::J))//уменьшить самалёт
+					 t10 = 1;
+			 }
+			/************  Т О Ч К А  ***********/
+			 {
+				 
+				 if (t1)//покозать точку
+				 {
+					 точка.Show();  
+					 t1 = 0;
+				 }
+
+				 if (t2)//показать точку на новом месте
+				 {
+					 точка.Переместить(100, 100);  
+					 t2 = 0;
+				 }
+
+				 if (t3)//перемещать точку
+					 точка.Упровление(1);  
+
+				 if (t4)//скрыть точку
+				 {
+					 точка.Hide();  
+					 t4 = 0;
+				 }
+			 
+			 }
+			/************  ФИГУРА   ***********/
+			 {
+				 if (t5)//покозать самалёт
+				 {
+					 самалёт.Show();  
+					 t5 = 0;
+				 }
+
+				 if (t6)//показать самалёт на новом месте
+				 {
+					 самалёт.Переместить(100, 100);  
+					 t6 = 0;
+				 }
+
+				 if (t7)//перемещать самалёт
+					 самалёт.Упровление(5);  
+
+				 if (t8)//скрыть самалёт
+				 {
+					 самалёт.Hide();  
+					 t8 = 0;
+				 }
+
+				 if (t9)//увеличить самалёт
+				 {
+					 самалёт.ИзменитьРазмер(300);  
+					 t9 = 0;
+				 }
+
+				 if (t10)//уменьшить самалёт
+				 {
+					 самалёт.ИзменитьРазмер(100);  
+					 t10 = 0;
+				 }
+			 }
+			
+
+			//===================================================================
+
+			//отображаем обьекты
+			точка.Отобразить(window);
+			самалёт.Отобразить(window);
+			window.display();
+		}
+	}
+	return 0;
+}
